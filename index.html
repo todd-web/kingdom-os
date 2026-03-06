@@ -379,9 +379,20 @@
     .hero-stats { flex-direction: column; gap: 1.5rem; }
     nav .nav-links { display: none; }
     .pod-grid { grid-template-columns: 1fr; }
-    .venture-card { min-width: 250px; }
-    .network-section { height: auto; min-height: 110vh; }
-    .network-sticky { position: relative; height: 110vh; }
+    .ventures-track {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;
+      overflow-x: visible; scroll-snap-type: none;
+    }
+    .venture-card {
+      min-width: unset; padding: 1.2rem;
+    }
+    .venture-card h3 { font-size: 1.1rem; }
+    .venture-card p { font-size: 0.7rem; line-height: 1.4; }
+    .venture-card .v-role { font-size: 0.5rem; margin-bottom: 0.5rem; }
+    .venture-card .v-stat { font-size: 1.3rem; margin-top: 0.8rem; padding-top: 0.6rem; }
+    .venture-card .v-stat-label { font-size: 0.5rem; }
+    .network-section { height: 500vh; }
+    .network-sticky { position: sticky; top: 0; height: 100vh; }
     .network-title { font-size: 1.3rem; padding: 0 1rem; }
     .network-subtitle { font-size: 0.6rem; padding: 0 1rem; }
     .network-counter .nc-num { font-size: 2.5rem; }
@@ -511,22 +522,6 @@
     </div>
 
     <div class="ventures-track reveal">
-      <div class="venture-card" data-color="gold">
-        <div class="v-role">Director of Experts</div>
-        <h3>The Desire Company</h3>
-        <p>Leading a community of 2,200+ real experts who create authentic product content
-           for brands. 200+ projects per year.</p>
-        <div class="v-stat">2,200+</div>
-        <div class="v-stat-label">Expert Community</div>
-      </div>
-      <div class="venture-card" data-color="coral">
-        <div class="v-role">Founder / Owner</div>
-        <h3>The Hip Hop Democrat</h3>
-        <p>The longest-running digital media platform for hip-hop and politics. 18 years
-           of cultural commentary at the intersection that matters.</p>
-        <div class="v-stat">18 YRS</div>
-        <div class="v-stat-label">And Counting</div>
-      </div>
       <div class="venture-card" data-color="blue">
         <div class="v-role">Personal Brand</div>
         <h3>Todd Builds Kingdoms</h3>
@@ -542,6 +537,22 @@
            Incorporated 2009.</p>
         <div class="v-stat">16 YRS</div>
         <div class="v-stat-label">In Business</div>
+      </div>
+      <div class="venture-card" data-color="gold">
+        <div class="v-role">Director of Experts</div>
+        <h3>The Desire Company</h3>
+        <p>Leading a community of 2,200+ real experts who create authentic product content
+           for brands. 200+ projects per year.</p>
+        <div class="v-stat">2,200+</div>
+        <div class="v-stat-label">Expert Community</div>
+      </div>
+      <div class="venture-card" data-color="coral">
+        <div class="v-role">Founder / Owner</div>
+        <h3>The Hip Hop Democrat</h3>
+        <p>The longest-running digital media platform for hip-hop and politics. 18 years
+           of cultural commentary at the intersection that matters.</p>
+        <div class="v-stat">18 YRS</div>
+        <div class="v-stat-label">And Counting</div>
       </div>
       <div class="venture-card" data-color="purple">
         <div class="v-role">Strategic Consultant</div>
@@ -1123,17 +1134,6 @@
       var w = logW(), h = logH();
       nctx.clearRect(0, 0, w, h);
 
-      // Auto-play on mobile
-      if (isMobile && isAutoPlaying) {
-        var elapsed = now - autoPlayStart;
-        if (elapsed < 6000) {
-          var t = elapsed / 6000;
-          progress = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-        } else {
-          progress = 1;
-        }
-      }
-
       var cx = w / 2, cy = h / 2;
 
       // Background radial
@@ -1385,20 +1385,15 @@
           resizeNet();
           buildNetwork();
           if (!animFrame) animFrame = requestAnimationFrame(drawNetwork);
-          if (isMobile) {
-            isAutoPlaying = true;
-            autoPlayStart = performance.now();
-          }
         }
 
         if (!visible && networkActive) {
           networkActive = false;
           if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
-          if (isMobile) { isAutoPlaying = false; progress = 0; }
         }
 
-        // Desktop: update scroll progress
-        if (networkActive && !isMobile) {
+        // Scroll-driven progress for ALL devices
+        if (networkActive) {
           var sectionHeight = netSection.offsetHeight - h;
           if (sectionHeight > 0) {
             var scrolled = -rect.top;
