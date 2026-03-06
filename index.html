@@ -99,12 +99,10 @@
   }
 
   .scroll-hint {
-    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
     opacity: 0; animation: fadeUp 1s 1.5s forwards;
-  }
-  .scroll-hint span {
-    display: block; width: 1px; height: 40px; background: var(--gold-dim);
-    margin: 0 auto; animation: pulse-line 2s infinite;
+    font-size: 0.55rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold-dim);
   }
 
   /* ============ NETWORK VISUALIZATION ============ */
@@ -121,9 +119,9 @@
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   }
   .network-text-overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute; top: 5%; left: 0; width: 100%;
     display: flex; flex-direction: column; align-items: center;
-    justify-content: center; pointer-events: none; z-index: 2;
+    pointer-events: none; z-index: 2;
   }
   .network-title {
     font-family: 'Bebas Neue', Impact, sans-serif;
@@ -354,10 +352,6 @@
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  @keyframes pulse-line {
-    0%, 100% { opacity: 0.3; height: 40px; }
-    50% { opacity: 1; height: 55px; }
-  }
   @keyframes glow-pulse {
     0%, 100% { box-shadow: 0 0 4px currentColor; }
     50% { box-shadow: 0 0 12px currentColor; }
@@ -386,8 +380,8 @@
     nav .nav-links { display: none; }
     .pod-grid { grid-template-columns: 1fr; }
     .venture-card { min-width: 250px; }
-    .network-section { height: auto; min-height: 100vh; }
-    .network-sticky { position: relative; height: 100vh; }
+    .network-section { height: auto; min-height: 110vh; }
+    .network-sticky { position: relative; height: 110vh; }
     .network-title { font-size: 1.3rem; padding: 0 1rem; }
     .network-subtitle { font-size: 0.6rem; padding: 0 1rem; }
     .network-counter .nc-num { font-size: 2.5rem; }
@@ -443,7 +437,7 @@
       </div>
     </div>
   </div>
-  <div class="scroll-hint"><span></span></div>
+  <div class="scroll-hint">SCROLL</div>
 </section>
 
 <!-- NETWORK VISUALIZATION -->
@@ -484,7 +478,7 @@
       <div class="who-card reveal reveal-delay-1">
         <div class="icon">&#x1f91d;</div>
         <h3>CONNECTION ACROSS EVERY LINE</h3>
-        <p>From Rev. Jesse Jackson to a 22-year-old rapper. From Bronzeville to Johannesburg.
+        <p>From Rev. Jesse Jackson to a first-generation college student. From Bronzeville to Johannesburg.
            From boardrooms to barbershops. Genuine understanding of people across every
            line society draws.</p>
       </div>
@@ -1063,8 +1057,8 @@
     function buildNetwork() {
       var w = logW(), h = logH();
       var cx = w / 2, cy = h / 2;
-      var podRadius = Math.min(w, h) * (isMobile ? 0.18 : 0.22);
-      var agentRadius = Math.min(w, h) * (isMobile ? 0.32 : 0.38);
+      var podRadius = Math.min(w, h) * (isMobile ? 0.22 : 0.26);
+      var agentRadius = Math.min(w, h) * (isMobile ? 0.38 : 0.42);
 
       pods = [];
       for (var i = 0; i < podDefs.length; i++) {
@@ -1149,11 +1143,12 @@
       nctx.fillStyle = bgGrad;
       nctx.fillRect(0, 0, w, h);
 
-      // Phase calculations
-      var podProgress = Math.min(1, progress * 3.3);
-      var agentProgress = Math.max(0, Math.min(1, (progress - 0.25) * 2.5));
-      var connectProgress = Math.max(0, Math.min(1, (progress - 0.5) * 2.5));
-      var fullGlow = Math.max(0, Math.min(1, (progress - 0.8) * 5));
+      // Phase calculations - sequential: center(0-0.15) -> pods(0.15-0.45) -> agents(0.45-0.75) -> full glow(0.75-1)
+      var centerProgress = Math.min(1, progress * 6.67); // 0 to 0.15
+      var podProgress = Math.max(0, Math.min(1, (progress - 0.15) * 3.33)); // 0.15 to 0.45
+      var agentProgress = Math.max(0, Math.min(1, (progress - 0.45) * 3.33)); // 0.45 to 0.75
+      var connectProgress = Math.max(0, Math.min(1, (progress - 0.55) * 4)); // 0.55 to 0.80
+      var fullGlow = Math.max(0, Math.min(1, (progress - 0.75) * 4)); // 0.75 to 1.0
 
       var visiblePods = Math.floor(podProgress * 7);
       var visibleAgents = Math.floor(agentProgress * netAgents.length);
@@ -1275,46 +1270,69 @@
         }
       }
 
-      // Center node
-      if (podProgress > 0.3) {
-        var centerAlpha = Math.min(1, (podProgress - 0.3) * 2);
-        var centerSize = (isMobile ? 6 : 8) + fullGlow * 4;
+      // Center node - THE OPERATOR - appears FIRST, much bigger
+      if (centerProgress > 0) {
+        var centerAlpha = Math.min(1, centerProgress * 2);
+        var centerSize = (isMobile ? 16 : 22) + fullGlow * 6;
         var cPulse = 0.7 + 0.3 * Math.sin(now * 0.001);
 
-        var cGlow = nctx.createRadialGradient(cx, cy, 0, cx, cy, centerSize * 6);
-        cGlow.addColorStop(0, rgba(201, 168, 76, 0.3 * centerAlpha * cPulse));
-        cGlow.addColorStop(0.4, rgba(201, 168, 76, 0.06 * centerAlpha));
+        // Large glow ring
+        var cGlow = nctx.createRadialGradient(cx, cy, 0, cx, cy, centerSize * 5);
+        cGlow.addColorStop(0, rgba(201, 168, 76, 0.4 * centerAlpha * cPulse));
+        cGlow.addColorStop(0.3, rgba(201, 168, 76, 0.12 * centerAlpha));
+        cGlow.addColorStop(0.6, rgba(201, 168, 76, 0.03 * centerAlpha));
         cGlow.addColorStop(1, 'rgba(201, 168, 76, 0)');
         nctx.fillStyle = cGlow;
-        nctx.fillRect(cx - centerSize * 6, cy - centerSize * 6, centerSize * 12, centerSize * 12);
+        nctx.fillRect(cx - centerSize * 5, cy - centerSize * 5, centerSize * 10, centerSize * 10);
 
+        // Beams to pods (only draw if pods are visible)
         for (var ci = 0; ci < pCount; ci++) {
           var cRgb = hexToRgb(pods[ci].color);
           nctx.beginPath();
           nctx.moveTo(cx, cy);
           nctx.lineTo(pods[ci].x, pods[ci].y);
           var cBeamPulse = 0.5 + 0.5 * Math.sin(now * 0.002 + ci);
-          nctx.strokeStyle = rgba(cRgb.r, cRgb.g, cRgb.b, 0.15 * centerAlpha * cBeamPulse);
-          nctx.lineWidth = 1.5;
+          nctx.strokeStyle = rgba(cRgb.r, cRgb.g, cRgb.b, 0.2 * centerAlpha * cBeamPulse * podProgress);
+          nctx.lineWidth = 2;
           nctx.stroke();
         }
 
+        // Outer ring
+        nctx.beginPath();
+        nctx.arc(cx, cy, centerSize * 1.3, 0, Math.PI * 2);
+        nctx.strokeStyle = rgba(201, 168, 76, 0.15 * centerAlpha * cPulse);
+        nctx.lineWidth = 1;
+        nctx.stroke();
+
+        // Main circle
         nctx.beginPath();
         nctx.arc(cx, cy, centerSize, 0, Math.PI * 2);
         nctx.fillStyle = rgba(201, 168, 76, centerAlpha);
         nctx.fill();
+
+        // Inner bright core
         nctx.beginPath();
-        nctx.arc(cx, cy, centerSize * 0.5, 0, Math.PI * 2);
-        nctx.fillStyle = rgba(255, 255, 255, 0.8 * centerAlpha * cPulse);
+        nctx.arc(cx, cy, centerSize * 0.45, 0, Math.PI * 2);
+        nctx.fillStyle = rgba(255, 255, 255, 0.9 * centerAlpha * cPulse);
         nctx.fill();
+
+        // "YOU" label under center node
+        if (centerProgress > 0.5) {
+          var youAlpha = Math.min(1, (centerProgress - 0.5) * 4);
+          var youSize = isMobile ? Math.max(10, Math.floor(logW() * 0.03)) : Math.max(11, Math.floor(logW() * 0.01));
+          nctx.font = '700 ' + youSize + 'px Montserrat, Arial, sans-serif';
+          nctx.fillStyle = rgba(201, 168, 76, youAlpha);
+          nctx.textAlign = 'center';
+          nctx.fillText('THE OPERATOR', cx, cy + centerSize + (isMobile ? 20 : 28));
+        }
       }
 
-      // Counter - always show out of 110
-      var realTotal = Math.min(visiblePods, 7) + Math.floor(agentProgress * 110);
+      // Counter
+      var realTotal = (centerProgress > 0.3 ? 1 : 0) + Math.min(visiblePods, 7) + Math.floor(agentProgress * 110);
       if (netCounter) netCounter.textContent = realTotal;
 
-      // Text phases
-      var showTitle = progress > 0.02 && progress < 0.9;
+      // Text phases - positioned ABOVE the diagram, sequential
+      var showTitle = progress > 0.02 && progress < 0.92;
       if (netTitle) {
         if (showTitle) {
           if (netTitle.className.indexOf('visible') === -1) netTitle.className += ' visible';
@@ -1329,16 +1347,19 @@
           netSubtitle.className = netSubtitle.className.replace(/\s*visible/g, '');
         }
       }
-      if (netScrollHint) netScrollHint.style.opacity = (!isMobile && progress < 0.15) ? '0.6' : '0';
+      if (netScrollHint) netScrollHint.style.opacity = (!isMobile && progress < 0.1) ? '0.6' : '0';
 
       if (netTitle) {
-        if (progress < 0.3) {
-          netTitle.textContent = 'THE ECOSYSTEM COMES ALIVE';
-          if (netSubtitle) netSubtitle.textContent = '7 operating pods powering the kingdom';
-        } else if (progress < 0.65) {
-          netTitle.textContent = 'AGENTS ACTIVATE';
-          if (netSubtitle) netSubtitle.textContent = '110 specialized AI agents branching from each pod';
-        } else if (progress < 0.9) {
+        if (progress < 0.15) {
+          netTitle.textContent = 'ONE OPERATOR';
+          if (netSubtitle) netSubtitle.textContent = 'The system begins with one human at the center';
+        } else if (progress < 0.45) {
+          netTitle.textContent = '7 PODS ACTIVATE';
+          if (netSubtitle) netSubtitle.textContent = 'Each venture powered by its own operating pod';
+        } else if (progress < 0.75) {
+          netTitle.textContent = '110 AGENTS DEPLOY';
+          if (netSubtitle) netSubtitle.textContent = 'Specialized AI agents branching from each pod';
+        } else if (progress < 0.92) {
           netTitle.textContent = 'FULLY CONNECTED';
           if (netSubtitle) netSubtitle.textContent = 'One interconnected intelligence. Always on.';
         } else {
