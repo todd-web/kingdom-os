@@ -273,14 +273,14 @@
   .pod-card .pod-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.5; font-weight: 300; }
   .pod-agents {
     margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05);
-    display: flex; flex-wrap: wrap; gap: 0.4rem;
     max-height: 0; overflow: hidden; transition: max-height 0.5s ease;
   }
   .pod-card.expanded .pod-agents { max-height: 500px; }
-  .pod-agent-tag {
-    font-size: 0.65rem; padding: 0.25rem 0.6rem; border-radius: 20px;
-    background: rgba(201, 168, 76, 0.08); color: var(--gold-dim);
-    border: 1px solid rgba(201, 168, 76, 0.12); letter-spacing: 0.5px;
+  .pod-capabilities {
+    font-size: 0.8rem; color: var(--gray-light); line-height: 1.7; font-weight: 300;
+  }
+  .pod-capabilities strong {
+    color: var(--gold-dim); font-weight: 500;
   }
   .pod-expand-hint {
     font-size: 0.6rem; color: var(--gray); letter-spacing: 1px;
@@ -606,16 +606,7 @@
         <div class="pod-desc">Expert operations, Monday.com automation, SOW engine, DocuSign, kickoff boards, data licensing</div>
         <div class="pod-expand-hint">Click to expand</div>
         <div class="pod-agents">
-          <span class="pod-agent-tag">Pod Lead</span>
-          <span class="pod-agent-tag">Kickoff Engine</span>
-          <span class="pod-agent-tag">SOW Generator</span>
-          <span class="pod-agent-tag">Expert Recruiter</span>
-          <span class="pod-agent-tag">Profile Builder</span>
-          <span class="pod-agent-tag">Monday Automator</span>
-          <span class="pod-agent-tag">Slack Ops</span>
-          <span class="pod-agent-tag">Data Licensing</span>
-          <span class="pod-agent-tag">Shopper Bot</span>
-          <span class="pod-agent-tag">Video Intelligence</span>
+          <p class="pod-capabilities">18 agents handling <strong>expert recruitment and onboarding</strong>, project kickoff automation, statement of work generation, platform integrations, content intelligence, and data operations. End-to-end expert lifecycle from sourcing to delivery.</p>
         </div>
       </div>
 
@@ -628,16 +619,7 @@
         <div class="pod-desc">Automated content pipeline, social distribution, artist features, political placements, paid growth</div>
         <div class="pod-expand-hint">Click to expand</div>
         <div class="pod-agents">
-          <span class="pod-agent-tag">Pod Lead</span>
-          <span class="pod-agent-tag">News Pipeline</span>
-          <span class="pod-agent-tag">Social Distributor</span>
-          <span class="pod-agent-tag">Content Writer</span>
-          <span class="pod-agent-tag">Artist Feature</span>
-          <span class="pod-agent-tag">Political Placements</span>
-          <span class="pod-agent-tag">Buffer Proxy</span>
-          <span class="pod-agent-tag">Haiku Review Gate</span>
-          <span class="pod-agent-tag">Paid Growth</span>
-          <span class="pod-agent-tag">Editor Auto-Social</span>
+          <p class="pod-capabilities">15 agents running <strong>automated content pipelines</strong>, multi-platform social distribution, AI-reviewed publishing, revenue programs, and paid growth campaigns. 16 content events per day across all channels.</p>
         </div>
       </div>
 
@@ -650,14 +632,7 @@
         <div class="pod-desc">Earned media strategy, LinkedIn content, Substack, media intelligence, pitch architecture, booking</div>
         <div class="pod-expand-hint">Click to expand</div>
         <div class="pod-agents">
-          <span class="pod-agent-tag">Pod Lead</span>
-          <span class="pod-agent-tag">LinkedIn Strategist</span>
-          <span class="pod-agent-tag">Substack Architect</span>
-          <span class="pod-agent-tag">Pitch Architect</span>
-          <span class="pod-agent-tag">Media Scout</span>
-          <span class="pod-agent-tag">Booking Manager</span>
-          <span class="pod-agent-tag">Media Kit Manager</span>
-          <span class="pod-agent-tag">Creative Director</span>
+          <p class="pod-capabilities">14 agents managing <strong>earned media strategy</strong>, personal brand content, newsletter publishing, pitch development, media intelligence, speaking engagements, and visual quality control.</p>
         </div>
       </div>
 
@@ -670,13 +645,7 @@
         <div class="pod-desc">HWCC, TWBB, board opportunities, civic strategy, nonprofit consulting, community engagement</div>
         <div class="pod-expand-hint">Click to expand</div>
         <div class="pod-agents">
-          <span class="pod-agent-tag">Pod Lead</span>
-          <span class="pod-agent-tag">Engagement Strategist</span>
-          <span class="pod-agent-tag">Board Scout</span>
-          <span class="pod-agent-tag">Positioning Architect</span>
-          <span class="pod-agent-tag">Pipeline Manager</span>
-          <span class="pod-agent-tag">Event Planner</span>
-          <span class="pod-agent-tag">Wix Specialist</span>
+          <p class="pod-capabilities">12 agents supporting <strong>nonprofit consulting</strong>, community engagement strategy, board positioning, event coordination, website management, and civic partnership development.</p>
         </div>
       </div>
 
@@ -689,12 +658,7 @@
         <div class="pod-desc">New venture ideation, acquisitions, market analysis, financial modeling, devil's advocate stress tests</div>
         <div class="pod-expand-hint">Click to expand</div>
         <div class="pod-agents">
-          <span class="pod-agent-tag">Pod Lead</span>
-          <span class="pod-agent-tag">Innovation Ideator</span>
-          <span class="pod-agent-tag">Acquisition Scout</span>
-          <span class="pod-agent-tag">Market Analyst</span>
-          <span class="pod-agent-tag">Devil's Advocate</span>
-          <span class="pod-agent-tag">Community Impact</span>
+          <p class="pod-capabilities">10 agents focused on <strong>new venture ideation</strong>, acquisition analysis, market research, financial modeling, and stress-testing ideas before investment of time or capital.</p>
         </div>
       </div>
 
@@ -707,19 +671,7 @@
         <div class="pod-desc">Cross-venture support: CFO, General Counsel, Chief of Staff, Data Analyst, QA, Security, DevOps</div>
         <div class="pod-expand-hint">Click to expand</div>
         <div class="pod-agents">
-          <span class="pod-agent-tag">Orchestrator</span>
-          <span class="pod-agent-tag">Portfolio CFO</span>
-          <span class="pod-agent-tag">General Counsel</span>
-          <span class="pod-agent-tag">Chief of Staff</span>
-          <span class="pod-agent-tag">Data Analyst</span>
-          <span class="pod-agent-tag">QA Editor</span>
-          <span class="pod-agent-tag">Security Manager</span>
-          <span class="pod-agent-tag">Creative Director</span>
-          <span class="pod-agent-tag">Knowledge Librarian</span>
-          <span class="pod-agent-tag">Workflow Architect</span>
-          <span class="pod-agent-tag">Systems Integrator</span>
-          <span class="pod-agent-tag">Vendor Admin</span>
-          <span class="pod-agent-tag">Relationship Strategist</span>
+          <p class="pod-capabilities">20 agents providing <strong>cross-venture operational support</strong>: financial analysis, legal review, strategic planning, data intelligence, quality assurance, security, workflow automation, and systems integration.</p>
         </div>
       </div>
 
@@ -732,18 +684,7 @@
         <div class="pod-desc">Agent factory, skill architect, prompt engineering, MCP servers, presentation design, content creation</div>
         <div class="pod-expand-hint">Click to expand</div>
         <div class="pod-agents">
-          <span class="pod-agent-tag">Agent Builder</span>
-          <span class="pod-agent-tag">Skill Architect</span>
-          <span class="pod-agent-tag">Deck Architect</span>
-          <span class="pod-agent-tag">Prompt Engineer</span>
-          <span class="pod-agent-tag">Code Review</span>
-          <span class="pod-agent-tag">Frontend Dev</span>
-          <span class="pod-agent-tag">Fullstack Dev</span>
-          <span class="pod-agent-tag">DevOps</span>
-          <span class="pod-agent-tag">QA Testing</span>
-          <span class="pod-agent-tag">Design System</span>
-          <span class="pod-agent-tag">N8N Specialist</span>
-          <span class="pod-agent-tag">Google Workspace</span>
+          <p class="pod-capabilities">21 agents powering the <strong>builder toolkit</strong>: agent creation, prompt engineering, presentation design, full-stack development, code review, infrastructure automation, and platform integrations.</p>
         </div>
       </div>
     </div>
