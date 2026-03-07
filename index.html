@@ -99,10 +99,20 @@
   }
 
   .scroll-hint {
-    position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
     opacity: 0; animation: fadeUp 1s 1.5s forwards;
     font-size: 0.55rem; letter-spacing: 3px; text-transform: uppercase;
     color: var(--gold-dim);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    width: 100%; text-align: center;
+  }
+  .scroll-arrow {
+    display: inline-block; font-size: 1.2rem; color: var(--gold);
+    animation: pulseArrow 2s ease-in-out infinite;
+  }
+  @keyframes pulseArrow {
+    0%, 100% { opacity: 0.4; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(6px); }
   }
 
   /* ============ NETWORK VISUALIZATION ============ */
@@ -448,7 +458,7 @@
       </div>
     </div>
   </div>
-  <div class="scroll-hint">SCROLL</div>
+  <div class="scroll-hint">SCROLL<span class="scroll-arrow">&#8595;</span></div>
 </section>
 
 <!-- NETWORK VISUALIZATION -->
@@ -1323,7 +1333,7 @@
           nctx.font = '700 ' + youSize + 'px Montserrat, Arial, sans-serif';
           nctx.fillStyle = rgba(201, 168, 76, youAlpha);
           nctx.textAlign = 'center';
-          nctx.fillText('THE OPERATOR', cx, cy + centerSize + (isMobile ? 20 : 28));
+          nctx.fillText('TODD', cx, cy + centerSize + (isMobile ? 20 : 28));
         }
       }
 
@@ -1351,7 +1361,7 @@
 
       if (netTitle) {
         if (progress < 0.15) {
-          netTitle.textContent = 'ONE OPERATOR';
+          netTitle.textContent = 'TODD. THE OPERATOR.';
           if (netSubtitle) netSubtitle.textContent = 'The system begins with one human at the center';
         } else if (progress < 0.45) {
           netTitle.textContent = '7 PODS ACTIVATE';
