@@ -440,15 +440,15 @@
     <h1>SIX VENTURES. ONE VISION.<br>ZERO WASTED MOTION.</h1>
     <p class="hero-sub">
       A faith-driven builder. A connector across every line. Two decades of real relationships
-      in real rooms, now amplified by 110+ AI agents working around the clock.
+      in real rooms, now amplified by 115+ AI agents working around the clock.
     </p>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="num"><span class="count-up" data-target="110">110</span>+</div>
+        <div class="num"><span class="count-up" data-target="115">115</span>+</div>
         <div class="label">AI Agents</div>
       </div>
       <div class="hero-stat">
-        <div class="num"><span class="count-up" data-target="7">7</span></div>
+        <div class="num"><span class="count-up" data-target="8">8</span></div>
         <div class="label">Operating Pods</div>
       </div>
       <div class="hero-stat">
@@ -470,7 +470,7 @@
     <canvas id="networkCanvas"></canvas>
     <div class="network-text-overlay">
       <div class="network-title" id="netTitle">THE ECOSYSTEM COMES ALIVE</div>
-      <div class="network-subtitle" id="netSubtitle">7 pods. 110 agents. One interconnected intelligence.</div>
+      <div class="network-subtitle" id="netSubtitle">8 pods. 115 agents. One interconnected intelligence.</div>
     </div>
     <div class="network-counter">
       <div class="nc-num" id="netCounter">0</div>
@@ -591,7 +591,7 @@
 <section class="ecosystem-section" id="ecosystem">
   <div class="section-inner">
     <div class="section-label reveal">The Engine</div>
-    <div class="section-title reveal reveal-delay-1">110+ AGENTS. 7 PODS. ALWAYS ON.</div>
+    <div class="section-title reveal reveal-delay-1">115+ AGENTS. 8 PODS. ALWAYS ON.</div>
     <div class="section-desc reveal reveal-delay-2">
       Each pod is a self-contained operating unit with specialized agents, automated triggers,
       and real deliverables. They scan, recommend, build, and escalate. Click any pod to learn more.
@@ -677,15 +677,28 @@
       </div>
 
       <div class="pod-card reveal reveal-delay-3" onclick="this.classList.toggle('expanded')">
-        <span class="pod-count">21</span>
+        <span class="pod-count">16</span>
         <div class="pod-header">
           <div class="pod-dot" style="color: var(--gold);"></div>
           <h3>BUILDER TOOLS</h3>
         </div>
-        <div class="pod-desc">Agent factory, skill architect, prompt engineering, MCP servers, presentation design, content creation</div>
+        <div class="pod-desc">Agent factory, skill architect, prompt engineering, MCP servers, full-stack development, platform integrations</div>
         <div class="pod-expand-hint">Click to expand</div>
         <div class="pod-agents">
-          <p class="pod-capabilities">21 agents powering the <strong>builder toolkit</strong>: agent creation, prompt engineering, presentation design, full-stack development, code review, infrastructure automation, and platform integrations.</p>
+          <p class="pod-capabilities">16 agents powering the <strong>builder toolkit</strong>: agent creation, prompt engineering, full-stack development, code review, infrastructure automation, and platform integrations.</p>
+        </div>
+      </div>
+
+      <div class="pod-card reveal" onclick="this.classList.toggle('expanded')">
+        <span class="pod-count">12</span>
+        <div class="pod-header">
+          <div class="pod-dot" style="color: #e67e22;"></div>
+          <h3>CREATIVE & DESIGN</h3>
+        </div>
+        <div class="pod-desc">Visual design, social graphics, illustration, animation, copywriting, video production, brand QA gate</div>
+        <div class="pod-expand-hint">Click to expand</div>
+        <div class="pod-agents">
+          <p class="pod-capabilities">12 agents running a <strong>full creative production studio</strong>: art direction, social media design, AI image generation, illustration, animation, copywriting, presentation design, and a complete video production sub-pod. Every visual and copy asset passes through the Creative Director QA gate before delivery.</p>
         </div>
       </div>
     </div>
@@ -716,7 +729,7 @@
       <div class="infra-item reveal reveal-delay-2">
         <div class="infra-icon">&#x1f916;</div>
         <h4>CLAUDE CODE CLI</h4>
-        <p>110+ specialized agents running Opus-class AI with full tool access and MCP integrations</p>
+        <p>115+ specialized agents running Opus-class AI with full tool access and MCP integrations</p>
       </div>
       <div class="infra-item reveal reveal-delay-3">
         <div class="infra-icon">&#x1f517;</div>
@@ -1013,7 +1026,8 @@
       { name: 'CIVIC', color: '#9b59b6', agents: isMobile ? 6 : 12 },
       { name: 'VENTURE', color: '#2ecc71', agents: isMobile ? 5 : 10 },
       { name: 'OPS', color: '#1abc9c', agents: isMobile ? 10 : 20 },
-      { name: 'TOOLS', color: '#e8c55a', agents: isMobile ? 10 : 21 }
+      { name: 'TOOLS', color: '#e8c55a', agents: isMobile ? 8 : 16 },
+      { name: 'CREATIVE', color: '#e67e22', agents: isMobile ? 6 : 12 }
     ];
 
     var pods = [];
@@ -1282,7 +1296,7 @@
       }
 
       // Counter
-      var realTotal = (centerProgress > 0.3 ? 1 : 0) + Math.min(visiblePods, 7) + Math.floor(agentProgress * 110);
+      var realTotal = (centerProgress > 0.3 ? 1 : 0) + Math.min(visiblePods, 8) + Math.floor(agentProgress * 115);
       if (netCounter) netCounter.textContent = realTotal;
 
       // Text phases - positioned ABOVE the diagram, sequential
@@ -1308,10 +1322,10 @@
           netTitle.textContent = 'TODD. THE OPERATOR.';
           if (netSubtitle) netSubtitle.textContent = 'The system begins with one human at the center';
         } else if (progress < 0.45) {
-          netTitle.textContent = '7 PODS ACTIVATE';
+          netTitle.textContent = '8 PODS ACTIVATE';
           if (netSubtitle) netSubtitle.textContent = 'Each venture powered by its own operating pod';
         } else if (progress < 0.75) {
-          netTitle.textContent = '110 AGENTS DEPLOY';
+          netTitle.textContent = '115 AGENTS DEPLOY';
           if (netSubtitle) netSubtitle.textContent = 'Specialized AI agents branching from each pod';
         } else if (progress < 0.92) {
           netTitle.textContent = 'FULLY CONNECTED';
